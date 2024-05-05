@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "example",
-    "slug": "example",
+    "name": "react-native-versatile-onboarding-example",
+    "slug": "react-native-versatile-onboarding-example",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#163766"
     },
     "assetBundlePatterns": [
       "**/*"

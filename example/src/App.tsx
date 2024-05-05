@@ -1,31 +1,19 @@
 import * as React from 'react';
-
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-versatile-onboarding';
+import VersatileOnboarding from 'react-native-versatile-onboarding';
+import OnboardingItem from './OnboardingItem';
+import data from './data';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
-
   return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
-    </View>
+    <VersatileOnboarding>
+      {data.map((item) => (
+        <OnboardingItem
+          Illustration={item.illustration}
+          description={item.description}
+          title={item.title}
+          key={item.id}
+        />
+      ))}
+    </VersatileOnboarding>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
-  },
-});
