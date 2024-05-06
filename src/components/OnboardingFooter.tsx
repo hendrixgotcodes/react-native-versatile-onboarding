@@ -14,7 +14,8 @@ interface Props {
   footerStyle?: StyleProp<ViewStyle>;
   footerBtnStyle?: StyleProp<ViewStyle>;
   sliderRef: MutableRefObject<ScrollView | null>;
-  onSubmit: () => void;
+  onNavigateToEnd?: () => any;
+  onNavigate?: (currentPageIndex: number) => any;
   childrenCount: number;
 }
 
@@ -23,20 +24,22 @@ export default function OnboardingFooter({
   footerStyle,
   sliderRef,
   childrenCount,
-  onSubmit,
+  onNavigateToEnd,
+  onNavigate,
 }: Props) {
   const { width } = useWindowDimensions();
   const [currentPosition, setCurrentPosition] = useState(0);
 
   const onBtnPress = () => {
     if (currentPosition >= width * (childrenCount - 1)) {
-      onSubmit();
+      onNavigateToEnd && onNavigateToEnd();
     } else {
       setCurrentPosition(currentPosition + width);
       sliderRef.current?.scrollTo({
         x: currentPosition + width,
         animated: true,
       });
+      onNavigate && onNavigate(currentPosition + 1);
     }
   };
   return (

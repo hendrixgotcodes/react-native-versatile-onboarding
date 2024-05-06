@@ -5,7 +5,6 @@ import React, {
   useRef,
 } from 'react';
 import {
-  Alert,
   Animated,
   SafeAreaView,
   ScrollView,
@@ -23,6 +22,8 @@ export interface Props {
   footerBtnStyle?: StyleProp<ViewStyle>;
   children: ReactElement<typeof View> | ReactElement<typeof View>[];
   paginatorType?: 'dot' | 'dash';
+  onNavigateToEnd?: () => any;
+  onNavigate?: (currentPageIndex: number) => any;
 }
 
 export default function ReactNativeVersatileOnboarding({
@@ -30,6 +31,9 @@ export default function ReactNativeVersatileOnboarding({
   Footer,
   footerBtnStyle,
   footerStyle,
+  onNavigate,
+  onNavigateToEnd,
+  paginatorType,
 }: Props) {
   const slideRef = useRef<ScrollView>(null);
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -39,7 +43,7 @@ export default function ReactNativeVersatileOnboarding({
       <Paginator
         childrenCount={Children.count(children)}
         scrollX={scrollX}
-        type="dot"
+        type={paginatorType}
       />
       <ScrollView
         bounces={false}
@@ -63,8 +67,9 @@ export default function ReactNativeVersatileOnboarding({
           footerBtnStyle={footerBtnStyle}
           footerStyle={footerStyle}
           sliderRef={slideRef}
-          onSubmit={() => Alert.alert('done')}
+          onNavigateToEnd={onNavigateToEnd}
           childrenCount={Children.count(children)}
+          onNavigate={onNavigate}
         />
       )}
     </SafeAreaView>
