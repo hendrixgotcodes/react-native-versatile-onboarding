@@ -1,6 +1,9 @@
-# react-native-versatile-onboarding
+<p align="center">
+  <img src="logo.png" alt="NativeWind Logo" width="150"/>
+</p>
+<h1 align="center">React Native Versatile Onboarding</h1>
 
-react-native-versatile-onboarding is a highly customizable and easy-to-integrate React Native library designed to enhance the onboarding experience for mobile applications. This library offers a rich set of animations, flexible layouts, and an intuitive API that caters to both developers and designers looking to create compelling, informative, and interactive onboarding flows.
+React-native-versatile-onboarding is a highly customizable and easy-to-integrate React Native library designed to enhance the onboarding experience for mobile applications. This library offers a rich set of animations, flexible layouts, and an intuitive API that caters to both developers and designers looking to create compelling, informative, and interactive onboarding flows.
 
 ## Installation
 
@@ -11,11 +14,25 @@ npm install react-native-versatile-onboarding
 ## Usage
 
 ```js
-import { multiply } from 'react-native-versatile-onboarding';
+import VersatileOnboarding from 'react-native-versatile-onboarding';
 
 // ...
 
-const result = await multiply(3, 7);
+export default function App() {
+  return (
+    <VersatileOnboarding>
+      <View>
+        <Text>Page 1</Text>
+      </View>
+      <View>
+        <Text>Page 2</Text>
+      </View>
+      <View>
+        <Text>Page 3</Text>
+      </View>
+    </VersatileOnboarding>
+  );
+}
 ```
 
 ## Contributing
@@ -28,4 +45,4 @@ MIT
 
 ---
 
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
+Made with ❤️
