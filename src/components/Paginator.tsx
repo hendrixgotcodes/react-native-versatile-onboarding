@@ -83,6 +83,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     paddingTop: 10,
+    position: 'absolute',
+    top: 0,
   },
   dot: {
     height: 10,

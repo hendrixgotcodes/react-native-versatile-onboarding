@@ -1,8 +1,8 @@
 import * as React from 'react';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import VersatileOnboarding from 'react-native-versatile-onboarding';
 import OnboardingItem from './OnboardingItem';
 import data from './data';
-import { SafeAreaView, StyleSheet } from 'react-native';
 
 export default function App() {
   return (

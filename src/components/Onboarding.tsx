@@ -41,22 +41,22 @@ export default function ReactNativeVersatileOnboarding({
   const scrollX = useRef(new Animated.Value(0)).current;
 
   const RenderFooter = useCallback(() => {
-    if (Footer === null) return Footer;
-
-    return (
-      <>
-        {Footer || (
-          <OnboardingFooter
-            footerBtnStyle={footerBtnStyle}
-            footerStyle={footerStyle}
-            sliderRef={slideRef}
-            onNavigateToEnd={onNavigateToEnd}
-            childrenCount={Children.count(children)}
-            onNavigate={onNavigate}
-          />
-        )}
-      </>
-    );
+    if (Footer === null) {
+      return Footer;
+    } else if (Footer) {
+      return <View>{Footer}</View>;
+    } else {
+      return (
+        <OnboardingFooter
+          footerBtnStyle={footerBtnStyle}
+          footerStyle={footerStyle}
+          sliderRef={slideRef}
+          onNavigateToEnd={onNavigateToEnd}
+          childrenCount={Children.count(children)}
+          onNavigate={onNavigate}
+        />
+      );
+    }
   }, [
     footerBtnStyle,
     footerStyle,
@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 20,
+    position: 'relative',
   },
   itemWrapper: {
     height: 100,

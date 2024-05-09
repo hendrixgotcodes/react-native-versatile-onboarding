@@ -55,6 +55,8 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
   },
   btn: {
     backgroundColor: '#000',
