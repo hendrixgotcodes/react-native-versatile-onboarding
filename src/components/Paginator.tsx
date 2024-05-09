@@ -1,9 +1,17 @@
 import React from 'react';
-import { Animated, StyleSheet, useWindowDimensions, View } from 'react-native';
+import {
+  Animated,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+  type StyleProp,
+  type ViewStyle,
+} from 'react-native';
 
 interface PaginatorsProp {
   childrenCount: number;
   scrollX: Animated.Value;
+  style?: StyleProp<ViewStyle>;
 }
 
 interface PaginatorProp extends PaginatorsProp {
@@ -16,11 +24,11 @@ export default function Paginator({ type, ...rest }: PaginatorProp) {
   return <DashPaginator {...rest} />;
 }
 
-function DotPaginator({ childrenCount, scrollX }: PaginatorsProp) {
+function DotPaginator({ childrenCount, scrollX, style }: PaginatorsProp) {
   const { width } = useWindowDimensions();
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       {new Array(childrenCount).fill('*').map((_, i) => {
         const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
 
@@ -41,11 +49,11 @@ function DotPaginator({ childrenCount, scrollX }: PaginatorsProp) {
   );
 }
 
-function DashPaginator({ childrenCount, scrollX }: PaginatorsProp) {
+function DashPaginator({ childrenCount, scrollX, style }: PaginatorsProp) {
   const { width } = useWindowDimensions();
 
   return (
-    <View style={[styles.container, { width }]}>
+    <View style={[styles.container, style, { width }]}>
       {new Array(childrenCount).fill('*').map((_, i) => {
         const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
 
@@ -74,6 +82,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'center',
+    paddingTop: 10,
   },
   dot: {
     height: 10,

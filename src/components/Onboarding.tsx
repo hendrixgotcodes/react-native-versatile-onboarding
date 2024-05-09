@@ -2,11 +2,11 @@ import React, {
   Children,
   type ReactElement,
   type ReactNode,
+  useCallback,
   useRef,
 } from 'react';
 import {
   Animated,
-  SafeAreaView,
   ScrollView,
   type StyleProp,
   StyleSheet,
@@ -18,6 +18,7 @@ import Paginator from './Paginator';
 
 export interface Props {
   Footer?: ReactNode;
+  headerStyle?: StyleProp<ViewStyle>;
   footerStyle?: StyleProp<ViewStyle>;
   footerBtnStyle?: StyleProp<ViewStyle>;
   children: ReactElement<typeof View> | ReactElement<typeof View>[];
@@ -34,16 +35,44 @@ export default function ReactNativeVersatileOnboarding({
   onNavigate,
   onNavigateToEnd,
   paginatorType,
+  headerStyle,
 }: Props) {
   const slideRef = useRef<ScrollView>(null);
   const scrollX = useRef(new Animated.Value(0)).current;
 
+  const RenderFooter = useCallback(() => {
+    if (Footer === null) return Footer;
+
+    return (
+      <>
+        {Footer || (
+          <OnboardingFooter
+            footerBtnStyle={footerBtnStyle}
+            footerStyle={footerStyle}
+            sliderRef={slideRef}
+            onNavigateToEnd={onNavigateToEnd}
+            childrenCount={Children.count(children)}
+            onNavigate={onNavigate}
+          />
+        )}
+      </>
+    );
+  }, [
+    footerBtnStyle,
+    footerStyle,
+    children,
+    onNavigate,
+    onNavigateToEnd,
+    Footer,
+  ]);
+
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Paginator
         childrenCount={Children.count(children)}
         scrollX={scrollX}
         type={paginatorType}
+        style={headerStyle}
       />
       <ScrollView
         bounces={false}
@@ -62,19 +91,12 @@ export default function ReactNativeVersatileOnboarding({
         {children}
       </ScrollView>
 
-      {Footer || (
-        <OnboardingFooter
-          footerBtnStyle={footerBtnStyle}
-          footerStyle={footerStyle}
-          sliderRef={slideRef}
-          onNavigateToEnd={onNavigateToEnd}
-          childrenCount={Children.count(children)}
-          onNavigate={onNavigate}
-        />
-      )}
-    </SafeAreaView>
+      <RenderFooter />
+    </View>
   );
 }
+
+// function RenderFooter
 
 const styles = StyleSheet.create({
   container: {

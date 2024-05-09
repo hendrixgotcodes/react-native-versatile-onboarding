@@ -1,0 +1,13 @@
+{
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular"
+      },
+      "@release-it/npm": {
+        "npm": {
+          "username": "hendrixgotcodes",
+          "email": "samuel11asare@gmail.com"
+        }
+      }
+    }
+}
