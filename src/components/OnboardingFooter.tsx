@@ -1,4 +1,4 @@
-import React, { type MutableRefObject, useState } from 'react';
+import React, { type MutableRefObject, useEffect, useState } from 'react';
 import {
   StyleSheet,
   Pressable,
@@ -8,6 +8,7 @@ import {
   type ViewStyle,
   ScrollView,
   useWindowDimensions,
+  Animated,
 } from 'react-native';
 
 interface Props {
@@ -17,6 +18,7 @@ interface Props {
   onNavigateToEnd?: () => any;
   onNavigate?: (currentPageIndex: number) => any;
   childrenCount: number;
+  scrollX: Animated.Value;
 }
 
 export default function OnboardingFooter({
@@ -26,9 +28,20 @@ export default function OnboardingFooter({
   childrenCount,
   onNavigateToEnd,
   onNavigate,
+  scrollX,
 }: Props) {
   const { width } = useWindowDimensions();
   const [currentPosition, setCurrentPosition] = useState(0);
+
+  useEffect(() => {
+    const res = scrollX.addListener((ev) => {
+      // console.log('ev: ', ev);
+      setCurrentPosition(ev.value);
+    });
+
+    return () => scrollX.removeListener(res);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onBtnPress = () => {
     if (currentPosition >= width * (childrenCount - 1)) {

@@ -54,6 +54,7 @@ export default function ReactNativeVersatileOnboarding({
           onNavigateToEnd={onNavigateToEnd}
           childrenCount={Children.count(children)}
           onNavigate={onNavigate}
+          scrollX={scrollX}
         />
       );
     }
@@ -64,6 +65,7 @@ export default function ReactNativeVersatileOnboarding({
     onNavigate,
     onNavigateToEnd,
     Footer,
+    scrollX,
   ]);
 
   return (
@@ -86,7 +88,7 @@ export default function ReactNativeVersatileOnboarding({
           { useNativeDriver: false }
         )}
         ref={slideRef}
-        scrollEnabled={false}
+        scrollEnabled={true}
       >
         {children}
       </ScrollView>
@@ -95,8 +97,6 @@ export default function ReactNativeVersatileOnboarding({
     </View>
   );
 }
-
-// function RenderFooter
 
 const styles = StyleSheet.create({
   container: {
