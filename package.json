@@ -1,6 +1,6 @@
 {
   "name": "react-native-versatile-onboarding",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "react-native-versatile-onboarding is a highly customizable and easy-to-integrate React Native library designed to enhance the onboarding experience for mobile applications. This library offers a rich set of animations, flexible layouts, and an intuitive API that caters to both developers and designers looking to create compelling, informative, and interactive onboarding flows.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
