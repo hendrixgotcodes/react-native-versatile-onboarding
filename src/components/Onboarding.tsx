@@ -26,8 +26,9 @@ export interface Props {
   paginatorType?: 'dot' | 'dash';
   onNavigateToEnd?: () => any;
   onNavigate?: (currentPageIndex: number) => any;
-  activePaginationColor: string;
-  inActivePaginationColor: string;
+  activePaginationColor?: string;
+  inActivePaginationColor?: string;
+  style?: StyleProp<ViewStyle>;
 }
 
 export default function ReactNativeVersatileOnboarding({
@@ -112,7 +113,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 20,
     position: 'relative',
   },
   itemWrapper: {
@@ -120,6 +120,6 @@ const styles = StyleSheet.create({
     width: 100,
   },
   list: {
-    flex: 3,
+    flex: 1,
   },
 });

@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: '100%',
     justifyContent: 'center',
+    backgroundColor: 'red',
   },
   description: {
     fontSize: 16,
