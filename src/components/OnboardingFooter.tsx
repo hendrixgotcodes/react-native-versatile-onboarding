@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     bottom: 0,
+    zIndex: 9999,
   },
   btn: {
     backgroundColor: '#000',

@@ -18,13 +18,16 @@ import Paginator from './Paginator';
 
 export interface Props {
   Footer?: ReactNode;
-  headerStyle?: StyleProp<ViewStyle>;
+  dashPaginationStyle?: StyleProp<ViewStyle>;
+  paginationContainerStyle?: StyleProp<ViewStyle>;
   footerStyle?: StyleProp<ViewStyle>;
   footerBtnStyle?: StyleProp<ViewStyle>;
   children: ReactElement<typeof View> | ReactElement<typeof View>[];
   paginatorType?: 'dot' | 'dash';
   onNavigateToEnd?: () => any;
   onNavigate?: (currentPageIndex: number) => any;
+  activePaginationColor: string;
+  inActivePaginationColor: string;
 }
 
 export default function ReactNativeVersatileOnboarding({
@@ -35,7 +38,10 @@ export default function ReactNativeVersatileOnboarding({
   onNavigate,
   onNavigateToEnd,
   paginatorType,
-  headerStyle,
+  paginationContainerStyle,
+  dashPaginationStyle,
+  activePaginationColor,
+  inActivePaginationColor,
 }: Props) {
   const slideRef = useRef<ScrollView>(null);
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -74,7 +80,10 @@ export default function ReactNativeVersatileOnboarding({
         childrenCount={Children.count(children)}
         scrollX={scrollX}
         type={paginatorType}
-        style={headerStyle}
+        containerStyle={paginationContainerStyle}
+        dashPaginationStyle={dashPaginationStyle}
+        activeColor={activePaginationColor}
+        inActiveColor={inActivePaginationColor}
       />
       <ScrollView
         bounces={false}

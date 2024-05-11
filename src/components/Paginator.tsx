@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   Animated,
   StyleSheet,
-  useWindowDimensions,
   View,
+  type LayoutChangeEvent,
   type StyleProp,
   type ViewStyle,
 } from 'react-native';
@@ -11,7 +11,10 @@ import {
 interface PaginatorsProp {
   childrenCount: number;
   scrollX: Animated.Value;
-  style?: StyleProp<ViewStyle>;
+  containerStyle?: StyleProp<ViewStyle>;
+  dashPaginationStyle?: StyleProp<ViewStyle>;
+  activeColor?: string;
+  inActiveColor?: string;
 }
 
 interface PaginatorProp extends PaginatorsProp {
@@ -24,11 +27,20 @@ export default function Paginator({ type, ...rest }: PaginatorProp) {
   return <DashPaginator {...rest} />;
 }
 
-function DotPaginator({ childrenCount, scrollX, style }: PaginatorsProp) {
-  const { width } = useWindowDimensions();
+function DotPaginator({
+  childrenCount,
+  scrollX,
+  containerStyle,
+}: PaginatorsProp) {
+  const [width, setWidth] = useState(0);
+
+  const onLayout = useCallback((ev: LayoutChangeEvent) => {
+    const { width: layoutWidth } = ev.nativeEvent.layout;
+    setWidth(layoutWidth);
+  }, []);
 
   return (
-    <View style={[styles.container, style]}>
+    <View onLayout={onLayout} style={[styles.container, containerStyle]}>
       {new Array(childrenCount).fill('*').map((_, i) => {
         const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
 
@@ -49,20 +61,32 @@ function DotPaginator({ childrenCount, scrollX, style }: PaginatorsProp) {
   );
 }
 
-function DashPaginator({ childrenCount, scrollX, style }: PaginatorsProp) {
-  const { width } = useWindowDimensions();
+function DashPaginator({
+  childrenCount,
+  scrollX,
+  containerStyle,
+  dashPaginationStyle,
+  activeColor,
+  inActiveColor,
+}: PaginatorsProp) {
+  const [width, setWidth] = useState(0);
+
+  const onLayout = useCallback((ev: LayoutChangeEvent) => {
+    const { width: layoutWidth } = ev.nativeEvent.layout;
+    setWidth(layoutWidth);
+  }, []);
 
   return (
-    <View style={[styles.container, style, { width }]}>
+    <View onLayout={onLayout} style={[styles.container, containerStyle]}>
       {new Array(childrenCount).fill('*').map((_, i) => {
         const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
 
         const backgroundColor = scrollX.interpolate({
           inputRange,
           outputRange: [
-            'rgba(0, 0, 0, 1)',
-            'rgba(0, 0, 0, 0.159)',
-            'rgba(0, 0, 0, 1)',
+            inActiveColor || 'rgba(0, 0, 0, 1)',
+            activeColor || 'rgba(0, 0, 0, 0.159)',
+            inActiveColor || 'rgba(0, 0, 0, 1)',
           ],
           extrapolate: 'clamp',
         });
@@ -70,7 +94,12 @@ function DashPaginator({ childrenCount, scrollX, style }: PaginatorsProp) {
         return (
           <Animated.View
             key={i.toString()}
-            style={[styles.dash, { width: width / 3 - 20, backgroundColor }]}
+            style={[
+              styles.dash,
+              dashPaginationStyle,
+              // eslint-disable-next-line react-native/no-inline-styles
+              { flex: 1, backgroundColor },
+            ]}
           />
         );
       })}
@@ -85,6 +114,8 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     position: 'absolute',
     top: 0,
+    zIndex: 999,
+    width: '100%',
   },
   dot: {
     height: 10,

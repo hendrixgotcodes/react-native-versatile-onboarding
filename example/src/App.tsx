@@ -7,7 +7,10 @@ import data from './data';
 export default function App() {
   return (
     <SafeAreaView style={style.main}>
-      <VersatileOnboarding>
+      <VersatileOnboarding
+        activePaginationColor="green"
+        inActivePaginationColor="red"
+      >
         {data.map((item) => (
           <OnboardingItem
             Illustration={item.illustration}
