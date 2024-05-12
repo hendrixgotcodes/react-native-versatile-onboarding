@@ -17,17 +17,17 @@ import OnboardingFooter from './OnboardingFooter';
 import Paginator from './Paginator';
 
 export interface Props {
-  Footer?: ReactNode;
+  activePaginationColor?: string;
+  children: ReactElement<typeof View> | ReactElement<typeof View>[];
   dashPaginationStyle?: StyleProp<ViewStyle>;
-  paginationContainerStyle?: StyleProp<ViewStyle>;
+  Footer?: ReactNode;
   footerStyle?: StyleProp<ViewStyle>;
   footerBtnStyle?: StyleProp<ViewStyle>;
-  children: ReactElement<typeof View> | ReactElement<typeof View>[];
-  paginatorType?: 'dot' | 'dash';
-  onNavigateToEnd?: () => any;
-  onNavigate?: (currentPageIndex: number) => any;
-  activePaginationColor?: string;
   inActivePaginationColor?: string;
+  onNavigate?: (currentPageIndex: number) => any;
+  onNavigateToEnd?: () => any;
+  paginationContainerStyle?: StyleProp<ViewStyle>;
+  paginatorType?: 'dot' | 'dash';
   style?: StyleProp<ViewStyle>;
 }
 

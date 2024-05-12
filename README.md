@@ -14,22 +14,22 @@ npm install react-native-versatile-onboarding
 ## Usage
 
 ```js
+import * as React from 'react';
 import VersatileOnboarding from 'react-native-versatile-onboarding';
-
-// ...
+import OnboardingItem from './OnboardingItem';
+import data from './data';
 
 export default function App() {
   return (
     <VersatileOnboarding>
-      <View>
-        <Text>Page 1</Text>
-      </View>
-      <View>
-        <Text>Page 2</Text>
-      </View>
-      <View>
-        <Text>Page 3</Text>
-      </View>
+      {data.map((item) => (
+        <OnboardingItem
+          Illustration={item.illustration}
+          description={item.description}
+          title={item.title}
+          key={item.id}
+        />
+      ))}
     </VersatileOnboarding>
   );
 }
@@ -47,6 +47,16 @@ export default function App() {
             </tr>
         </thead>
         <tbody>
+            <tr>
+                <td>activePaginationColor (optional)</td>
+                <td>
+                  string
+                </td>
+                <td>rgba(0, 0, 0, 0.159)</td>
+                <td>
+                   Set this to change the color of active pagination element. This should be a color code if set (Can be HEX, rgb, rgba or hsl value.
+                </td>
+            </tr>
             <tr>
                 <td>Children</td>
                 <td>
@@ -70,10 +80,14 @@ export default function App() {
                 <td>Allows customization of the default styles applied to the provided footer component.</td>
             </tr>
             <tr>
-                <td>PaginatorType (optional)</td>
-                <td>"dot" | "dash"</td>
-                <td>"dot"</td>
-                <td>Specifies the appearance of the pagination element, either as dots or dashes.</td>
+                <td>inAtivePaginationColor (optional)</td>
+                <td>
+                  string
+                </td>
+                <td>rgba(0, 0, 0, 1)</td>
+                <td>
+                   Set this to change the color of inActive pagination element. This should be a color code if set (Can be HEX, rgb, rgba or hsl value.
+                </td>
             </tr>
             <tr>
                 <td>onNavigate (optional)</td>
@@ -86,6 +100,20 @@ export default function App() {
                 <td>( ) =&gt; any</td>
                 <td>undefined</td>
                 <td>Callback that is invoked when the onboarding component finishes all navigation.</td>
+            </tr>
+            <tr>
+                <td>paginationContainerStyle (optional)</td>
+                <td>StyleProp&lt;ViewStyle&gt;</td>
+                <td>null</td>
+                <td>
+                  Allows customization of the default styles applied to the container of pagination elements.
+                </td>
+            </tr>
+            <tr>
+                <td>PaginatorType (optional)</td>
+                <td>"dot" | "dash"</td>
+                <td>"dot"</td>
+                <td>Specifies the appearance of the pagination element, either as dots or dashes.</td>
             </tr>
         </tbody>
     </table>
