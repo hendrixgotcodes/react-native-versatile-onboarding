@@ -1,7 +1,7 @@
 import React, {
   Children,
+  type FC,
   type ReactElement,
-  type ReactNode,
   useCallback,
   useRef,
 } from 'react';
@@ -13,21 +13,28 @@ import {
   View,
   type ViewStyle,
 } from 'react-native';
+import withOnboarding from '../HOCs/withOnboarding';
 import OnboardingFooter from './OnboardingFooter';
 import Paginator from './Paginator';
+
+export type CustomFooterProps = {
+  childrenCount: number;
+  scrollX: Animated.Value;
+  navigate?: (...args: any) => void;
+};
 
 export interface Props {
   activePaginationColor?: string;
   children: ReactElement<typeof View> | ReactElement<typeof View>[];
   dashPaginationStyle?: StyleProp<ViewStyle>;
-  Footer?: ReactNode;
+  Footer?: FC<CustomFooterProps> | null;
   footerStyle?: StyleProp<ViewStyle>;
   footerBtnStyle?: StyleProp<ViewStyle>;
   inActivePaginationColor?: string;
   onNavigate?: (currentPageIndex: number) => any;
   onNavigateToEnd?: () => any;
   paginationContainerStyle?: StyleProp<ViewStyle>;
-  paginatorType?: 'dot' | 'dash';
+  paginatorType?: 'dot' | 'dash' | 'none';
   style?: StyleProp<ViewStyle>;
 }
 
@@ -51,7 +58,16 @@ export default function ReactNativeVersatileOnboarding({
     if (Footer === null) {
       return Footer;
     } else if (Footer) {
-      return <View>{Footer}</View>;
+      const NewFoooter = withOnboarding(Footer);
+      return (
+        <NewFoooter
+          childrenCount={Children.count(children)}
+          scrollX={scrollX}
+          sliderRef={slideRef}
+          onNavigate={onNavigate}
+          onNavigateToEnd={onNavigateToEnd}
+        />
+      );
     } else {
       return (
         <OnboardingFooter

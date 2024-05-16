@@ -18,12 +18,15 @@ interface PaginatorsProp {
 }
 
 interface PaginatorProp extends PaginatorsProp {
-  type?: 'dot' | 'dash';
+  type?: 'dot' | 'dash' | 'none';
 }
 
 export default function Paginator({ type, ...rest }: PaginatorProp) {
-  if (type === 'dot') return <DotPaginator {...rest} />;
-
+  if (type === 'dot') {
+    return <DotPaginator {...rest} />;
+  } else if (type === 'none') {
+    return;
+  }
   return <DashPaginator {...rest} />;
 }
 
